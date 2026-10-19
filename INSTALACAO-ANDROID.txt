@@ -8,3 +8,5 @@ JET PRODUÇÃO — INSTALAÇÃO ANDROID
 
 PIN padrão: 3633.
 Atenção: backup JSON agora inclui fotos e pode ficar grande. Faça um backup antes de limpar os dados.
+
+RELATÓRIO DE TURNO: o botão "Copiar relatório do turno" gera o encerramento agrupado por alarme, descarregado, fora de zona e vandalismo, com observações, pontos organizados, evidências e agente.

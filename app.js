@@ -88,6 +88,69 @@ async function shareRecordToTelegram(id){
  }catch(e){if(e.name!=='AbortError')alert('Não foi possível abrir o compartilhamento. Tente novamente pelo menu de compartilhamento do navegador.');}
 }
 
+const REPORT_VEHICLE='URL9G77';
+const REPORT_AGENT='Jonathan Borges';
+const REPORT_GROUPS=[
+ {key:'alarme',title:'🚨 Patinete encontrado em alarme',match:r=>/alarme/i.test(reportType(r))&&!/fora.?de.?zona|fora.?da.?zona/i.test(reportType(r))},
+ {key:'descarregado',title:'🔋 Patinete descarregado',match:r=>/descarregado|bateria baixa|sem carga/i.test(reportType(r))},
+ {key:'fora',title:'📍 Patinete além da zona',match:r=>/fora.?de.?zona|fora.?da.?zona|além da zona/i.test(reportType(r))},
+ {key:'vandalizado',title:'🛠️ Patinete vandalizado',match:r=>/vandaliz|rompido|sino furtado/i.test(reportType(r))}
+];
+function reportType(r){return String(r.reason||r.category||'').replace(/^Time Mark\s*[·—-]\s*/i,'').trim();}
+function reportIsShiftEvent(r){return /^(início|fim) de turno$/i.test(String(r.category||''));}
+function reportCode(r){return String(r.asset||'').trim()||'Sem identificação';}
+function reportHasPhoto(r){return !!r.photo;}
+function reportHasEvidence(r){return reportHasPhoto(r)&&!!r.gps;}
+function reportIsPoint(r){return /ponto arrumado|zona organizada|colocado em ponto|ponto organizado/i.test([r.category,r.reason,r.notes].join(' '));}
+function reportObservation(r){
+ let note=String(r.notes||'').trim();
+ note=note.replace(/(?:^|\s*[·|]\s*)Agente:\s*[^|·\n]+/ig,'')
+          .replace(/(?:^|\s*[·|]\s*)Endereço:\s*[^|·\n]+/ig,'')
+          .replace(/\s*\|\s*/g,' · ').replace(/^\s*[·|]+\s*|\s*[·|]+\s*$/g,'').trim();
+ if(!note) note=String(r.reason||'').trim();
+ return note.replace(/^Time Mark\s*[·—-]\s*/i,'').trim()||'Sem observações registradas';
+}
+function reportStatusIcons(r){return '📷 🟢';}
+function makeShiftReport(records,today){
+ const tasks=records.filter(r=>!reportIsShiftEvent(r));
+ const lines=[
+  'Boa noite, encerramento de patrulhamento feito de moto, finalizando o turno.',
+  '',
+  `Veículo: ${REPORT_VEHICLE}`,
+  '',
+  'Resumo de Atividades',
+  `- Total de Tarefas Realizadas: ${tasks.length} registros`,
+  ''
+ ];
+ const used=new Set();
+ for(const group of REPORT_GROUPS){
+  const matches=tasks.filter(r=>group.match(r));
+  if(!matches.length)continue;
+  lines.push(group.title);
+  matches.forEach(r=>{lines.push(`- ${reportCode(r)} ${reportStatusIcons(r)}`);used.add(r.id);});
+  lines.push('');
+ }
+ const other=tasks.filter(r=>!used.has(r.id)&&!reportIsPoint(r));
+ if(other.length){
+  lines.push('📋 Outras ocorrências');
+  other.forEach(r=>{lines.push(`- ${reportCode(r)} ${reportStatusIcons(r)}`);used.add(r.id);});
+  lines.push('');
+ }
+ lines.push('📝 Observações das ocorrências');
+ const observationRecords=tasks.filter(r=>used.has(r.id)||reportIsPoint(r));
+ const seenNotes=new Set();
+ observationRecords.forEach(r=>{
+  const note=reportObservation(r),line=`- ${reportCode(r)}: ${note}`;
+  // Keep separate notes for repeated codes when they describe different events.
+  if(!seenNotes.has(line)){lines.push(line);seenNotes.add(line);}
+ });
+ if(seenNotes.size===0)lines.push('- Nenhuma observação registrada.');
+ const pointRecords=tasks.filter(reportIsPoint);
+ const pointCodes=new Set(pointRecords.map(reportCode));
+ const pointPhotos=pointRecords.filter(reportHasPhoto).length;
+ lines.push('',`🛠️ Pontos Organizados: ${pointCodes.size}`,`📷 Evidências de pontos: ${pointPhotos} foto(s)`,'',`Agente de prevenção: ${REPORT_AGENT}`);
+ return lines.join('\n');
+}
 async function copyShiftReport(){
  const status=$('shiftReportStatus');
  try{
@@ -95,14 +158,15 @@ async function copyShiftReport(){
   const today=new Date();
   const key=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
   const records=all.filter(r=>{const d=new Date(r.createdAt);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`===key;}).sort((a,b)=>a.createdAt.localeCompare(b.createdAt));
-  if(!records.length){status.textContent='Não há registros de hoje para montar o relatório.';return;}
-  const report=`📋 RELATÓRIO JET PRODUÇÃO\n📅 ${today.toLocaleDateString('pt-BR')} · ${records.length} registro(s)\n\n${records.map((r,i)=>`${i+1}. ${recordShareText(r).replace(/\n📷 Registro fotográfico JET$/,'')}`).join('\n\n──────────────\n\n')}\n\n✅ Fim do relatório`;
+  if(!records.some(r=>!reportIsShiftEvent(r))){status.textContent='Não há tarefas registradas hoje para montar o relatório.';return;}
+  const report=makeShiftReport(records,today);
   if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(report);}else{const ta=document.createElement('textarea');ta.value=report;ta.readOnly=true;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(!ok)throw new Error('copy failed');}
-  status.textContent=`Relatório de ${records.length} registro(s) copiado. Cole no grupo ou tópico do Telegram.`;
+  status.textContent=`Relatório completo com ${records.filter(r=>!reportIsShiftEvent(r)).length} tarefa(s) copiado no formato de encerramento de turno.`;
  }catch(e){
-  const all=await getAll();const today=new Date();const records=all.filter(r=>{const d=new Date(r.createdAt);return d.toDateString()===today.toDateString();}).sort((a,b)=>a.createdAt.localeCompare(b.createdAt));
-  if(records.length) prompt('Copie o relatório completo e cole no Telegram:',`📋 RELATÓRIO JET PRODUÇÃO · ${today.toLocaleDateString('pt-BR')}\n\n${records.map((r,i)=>`${i+1}. ${recordShareText(r)}`).join('\n\n──────────────\n\n')}`);
-  else status.textContent='Não há registros de hoje para montar o relatório.';
+  const all=await getAll();const today=new Date();
+  const records=all.filter(r=>{const d=new Date(r.createdAt);return d.toDateString()===today.toDateString();}).sort((a,b)=>a.createdAt.localeCompare(b.createdAt));
+  if(records.some(r=>!reportIsShiftEvent(r)))prompt('Copie o relatório completo e cole no Telegram:',makeShiftReport(records,today));
+  else status.textContent='Não há tarefas registradas hoje para montar o relatório.';
  }
 }
 $('copyShiftReportBtn').addEventListener('click',copyShiftReport);

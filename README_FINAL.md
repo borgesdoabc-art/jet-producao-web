@@ -26,3 +26,7 @@ PWA estática para operação em celular, atualizada a partir dos arquivos do pr
 - O endereço depende de internet e de serviços externos. Se a geocodificação falhar, as coordenadas GPS continuam disponíveis.
 - O navegador não consegue escolher automaticamente um grupo ou tópico do Telegram. Confirme o destino e o envio dentro do Telegram.
 - Teste com registros fictícios e faça um backup antes de substituir arquivos ou apagar dados.
+
+
+### Relatório completo de encerramento de turno
+O botão **Copiar relatório do turno** monta o relatório no formato de encerramento de patrulhamento, agrupa ocorrências por alarme, descarregado, fora de zona e vandalismo, inclui observações, total de tarefas, pontos organizados e evidências fotográficas. Veículo e agente padrão configurados: `URL9G77` e `Jonathan Borges`.
