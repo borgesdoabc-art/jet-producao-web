@@ -18,3 +18,7 @@ Os dados continuam no armazenamento local do navegador; faça backup antes de li
 
 ## Compartilhamento Telegram
 No Histórico, cada registro tem o botão **Telegram**. Em iPhone/Android, use o compartilhamento do sistema para escolher Telegram, grupo e depois o tópico. A página web não seleciona automaticamente um tópico de fórum; essa escolha ocorre dentro do Telegram. Se o navegador não compartilhar a foto, ela será baixada e o texto abrirá no Telegram para envio manual.
+
+
+## Copiar legenda manualmente
+No Histórico, toque em **📋 Copiar legenda** para copiar o texto formatado do registro. No Telegram, anexe a foto ao grupo/tópico desejado e cole o texto no campo de legenda da própria foto antes de enviar. Se a cópia automática não estiver disponível, o app mostrará o texto para copiar manualmente.
