@@ -14,3 +14,7 @@
 
 ## Importante
 Os dados continuam no armazenamento local do navegador; faça backup antes de limpar os dados do site. Fotos não são incluídas no backup JSON. A geocodificação precisa de internet. Este pacote atualiza a PWA existente; teste com registros fictícios antes do uso operacional.
+
+
+## Compartilhamento Telegram
+No Histórico, cada registro tem o botão **Telegram**. Em iPhone/Android, use o compartilhamento do sistema para escolher Telegram, grupo e depois o tópico. A página web não seleciona automaticamente um tópico de fórum; essa escolha ocorre dentro do Telegram. Se o navegador não compartilhar a foto, ela será baixada e o texto abrirá no Telegram para envio manual.
