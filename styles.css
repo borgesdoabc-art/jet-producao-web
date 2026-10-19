@@ -14,3 +14,8 @@
 .shift-panel button:disabled{opacity:.45;cursor:not-allowed}
 .shift-panel .pill{white-space:nowrap}
 @media(max-width:520px){.shift-head{align-items:flex-start;flex-direction:column}}
+
+/* JET Telegram Premium integration — elegant navy/green */
+:root{--green:#147d5a;--green2:#0d6247;--jet-blue:#10243a;--jet-navy:#10243a;--jet-pale:#dcefe7}
+.top{background:linear-gradient(120deg,#0b1c30,#153b4b)!important}.brand-mark{color:#0d6247!important}.primary{background:#147d5a!important}.tab.active{background:#147d5a!important;border-bottom-color:#7de0b5!important}.pin-gate{background:linear-gradient(145deg,#0b1c30,#14624b)!important}.pin-logo{background:#147d5a!important}.pin-reset{color:#147d5a!important}
+.telegram-card{display:grid;gap:12px;background:linear-gradient(145deg,#10243a,#173c48);color:#f4fff9;border:1px solid #285e5a;border-radius:18px;padding:16px;box-shadow:0 8px 24px #0b1c3018}.telegram-card label{color:#e3f5ed}.telegram-card input{background:#f7fffb;border-color:#3c7466}.telegram-card .tm-help{color:#b5d3c8!important}.telegram-card .status{color:#8cf0bd}.telegram-card h3{margin:0;color:#fff;font-size:17px}.telegram-card p{color:#b5d3c8;margin:3px 0 0}.telegram-card-head{display:flex;align-items:center;gap:10px}.telegram-icon{display:grid;place-items:center;background:#147d5a;border-radius:13px;width:44px;height:44px;font-size:23px}.telegram-badge{margin-left:auto;font-size:9px;letter-spacing:1px;color:#9bf0c5;border:1px solid #367c68;border-radius:30px;padding:5px 7px;white-space:nowrap}.telegram-card .secondary{background:#dcefe7!important;color:#10392d!important}.telegram-card .primary{background:#20a875!important;color:#fff!important}

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#2f80ed"><meta name="description" content="JET Produção — registros operacionais locais">
+  <meta name="theme-color" content="#10243a"><meta name="description" content="JET Produção — registros operacionais locais">
   <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
   <title>JET Produção</title>
 </head>
@@ -26,7 +26,7 @@
   </form>
 </section>
 <section id="page-historico" class="page">
-  <div class="section-head"><div><h2>Histórico</h2><p>Registros salvos neste dispositivo.</p></div><span id="recordCount" class="count">0 registros</span></div><div class="panel stack"><button id="copyShiftReportBtn" class="primary">📋 Copiar relatório do turno</button><p class="tm-help">Monta um relatório com todos os registros de hoje para você colar no grupo ou tópico do Telegram.</p><p id="shiftReportStatus" class="status" role="status"></p></div>
+  <div class="section-head"><div><h2>Histórico</h2><p>Registros salvos neste dispositivo.</p></div><span id="recordCount" class="count">0 registros</span></div><div class="panel stack"><div class="telegram-card"><div class="telegram-card-head"><span class="telegram-icon">✈</span><div><h3>JET × Telegram</h3><p>Envie relatórios e evidências para o chat configurado.</p></div><span class="telegram-badge">INTEGRAÇÃO</span></div><label>URL do Worker de integração<input id="telegramEndpoint" type="url" placeholder="https://seu-worker.workers.dev"></label><label>Chave de acesso do JET<input id="telegramApiKey" type="password" autocomplete="off" placeholder="Chave definida no Worker"></label><div class="grid2"><button id="saveTelegramConfigBtn" type="button" class="secondary">Salvar conexão</button><button id="testTelegramBtn" type="button" class="secondary">Testar bot</button></div><button id="copyShiftReportBtn" class="secondary">📋 Copiar relatório do turno</button><button id="sendShiftReportBtn" class="primary">✈ Enviar relatório ao Telegram</button><p class="tm-help">O bot envia para o chat definido no servidor. O token do bot fica no Worker, nunca neste aplicativo.</p><p id="shiftReportStatus" class="status" role="status" aria-live="polite"></p></div></div>
   <div class="filters panel"><input id="search" placeholder="Buscar código, categoria ou comentário"><div class="grid2"><label>Categoria<select id="filterCategory"><option value="">Todas</option><option>Patinete recolhido</option><option>Ponto arrumado</option><option>Alarme</option><option>Ocorrência</option><option>Patrulhamento</option><option>Outro</option></select></label><label>Mês<input type="month" id="filterMonth"></label></div></div>
   <div id="records" class="record-list"></div>
 </section>

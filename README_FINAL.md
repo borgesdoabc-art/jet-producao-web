@@ -30,3 +30,7 @@ PWA estática para operação em celular, atualizada a partir dos arquivos do pr
 
 ### Relatório completo de encerramento de turno
 O botão **Copiar relatório do turno** monta o relatório no formato de encerramento de patrulhamento, agrupa ocorrências por alarme, descarregado, fora de zona e vandalismo, inclui observações, total de tarefas, pontos organizados e evidências fotográficas. Veículo e agente padrão configurados: `URL9G77` e `Jonathan Borges`.
+
+
+## Integração Telegram
+Consulte `telegram-worker/LEIA-ME-INTEGRACAO.md` para publicar o Worker e configurar o bot. O token fica no servidor como secret.
