@@ -1,13 +1,1 @@
-{
-  "name": "JET Produção",
-  "short_name": "JET Produção",
-  "description": "Registros operacionais com histórico e métricas locais",
-  "lang": "pt-BR",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#f3f6f4",
-  "theme_color": "#123c2d",
-  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
-}
+{"name":"JET Produção","short_name":"JET Produção","start_url":"./","scope":"./","display":"standalone","background_color":"#f3f6fa","theme_color":"#2f80ed","icons":[{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
