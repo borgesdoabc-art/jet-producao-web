@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#123c2d"><meta name="description" content="JET Produção — registros operacionais locais">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+  <title>JET Produção</title>
+</head>
+<body>
+<header class="top"><div class="brand-mark">JET</div><div><h1>JET Produção</h1><p>Registros operacionais · armazenamento local</p></div><span id="offline" class="pill">Offline pronto</span></header>
+<nav class="tabs" aria-label="Navegação"><button class="tab active" data-page="novo">＋ Registro</button><button class="tab" data-page="historico">▤ Histórico</button><button class="tab" data-page="metricas">▥ Métricas</button><button class="tab" data-page="backup">↕ Backup</button></nav>
+<main>
+<section id="page-novo" class="page active">
+  <div class="section-head"><div><h2>Novo registro</h2><p>Os dados ficam neste iPhone/navegador.</p></div></div>
+  <form id="recordForm" class="panel">
+    <label>Categoria<select id="category" required><option value="Patinete recolhido">Patinete recolhido</option><option value="Ponto arrumado">Ponto arrumado</option><option value="Alarme">Alarme</option><option value="Ocorrência">Ocorrência</option><option value="Patrulhamento">Patrulhamento</option><option value="Outro">Outro</option></select></label>
+    <div class="grid2"><label>Identificação do patinete/ponto<input id="asset" placeholder="Ex.: número ou código"></label><label>Turno<select id="shift"><option>Manhã</option><option>Tarde</option><option selected>Noite</option><option>Madrugada</option><option>Outro</option></select></label></div>
+    <label>Motivo / situação<input id="reason" placeholder="Ex.: alarme, recolhimento, organização"></label>
+    <label>Comentário<textarea id="notes" rows="3" placeholder="Descreva o que aconteceu..."></textarea></label>
+    <div class="gpsbox"><div><strong>Localização GPS</strong><p id="gpsStatus">Ainda não capturada.</p></div><button type="button" class="secondary" id="gpsBtn">Capturar GPS</button></div>
+    <input type="hidden" id="latitude"><input type="hidden" id="longitude"><input type="hidden" id="accuracy">
+    <label class="photo-label">Foto (opcional)<input id="photo" type="file" accept="image/*" capture="environment"></label><img id="preview" class="preview hidden" alt="Prévia da foto">
+    <button class="primary" type="submit">Salvar registro</button><p id="formStatus" class="status" role="status"></p>
+  </form>
+</section>
+<section id="page-historico" class="page">
+  <div class="section-head"><div><h2>Histórico</h2><p>Registros salvos neste dispositivo.</p></div><span id="recordCount" class="count">0 registros</span></div>
+  <div class="filters panel"><input id="search" placeholder="Buscar código, categoria ou comentário"><div class="grid2"><label>Categoria<select id="filterCategory"><option value="">Todas</option><option>Patinete recolhido</option><option>Ponto arrumado</option><option>Alarme</option><option>Ocorrência</option><option>Patrulhamento</option><option>Outro</option></select></label><label>Mês<input type="month" id="filterMonth"></label></div></div>
+  <div id="records" class="record-list"></div>
+</section>
+<section id="page-metricas" class="page">
+  <div class="section-head"><div><h2>Métricas</h2><p>Resumo calculado a partir dos registros locais.</p></div></div>
+  <div class="panel"><label>Mês de referência<input type="month" id="metricsMonth"></label><div class="stats"><div class="stat"><span>Total de registros</span><strong id="mTotal">0</strong></div><div class="stat"><span>Dias com produção</span><strong id="mDays">0</strong></div><div class="stat"><span>Média por dia ativo</span><strong id="mAverage">0</strong></div></div><h3>Por categoria</h3><div id="categoryStats" class="bars"></div></div>
+</section>
+<section id="page-backup" class="page">
+  <div class="section-head"><div><h2>Backup e dados</h2><p>Faça cópias regulares para não perder seus registros.</p></div></div>
+  <div class="panel stack"><div><h3>Exportar backup</h3><p>Gera um arquivo JSON com registros e fotos. Guarde-o em Arquivos, iCloud Drive ou outro local seguro.</p><button id="exportBtn" class="primary">Exportar backup JSON</button></div><hr><div><h3>Restaurar backup</h3><p>Importa registros de um backup JET. Registros com o mesmo ID serão ignorados.</p><label class="file-button">Selecionar arquivo JSON<input id="importFile" type="file" accept="application/json,.json"></label><p id="backupStatus" class="status" role="status"></p></div><hr><div><h3>Instalar na tela inicial</h3><p>No Safari do iPhone, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. A primeira abertura deve ser feita com internet para carregar os arquivos.</p></div><hr><div><h3>Apagar todos os dados</h3><p>Esta ação não pode ser desfeita. Exporte um backup antes.</p><button id="clearBtn" class="danger">Apagar registros locais</button></div></div>
+</section>
+</main>
+<dialog id="detailDialog"><div class="dialog-head"><h2>Detalhes do registro</h2><button id="closeDialog" class="icon-btn" aria-label="Fechar">✕</button></div><div id="detailBody"></div></dialog>
+<footer>JET Produção Web · versão inicial · dados armazenados localmente</footer>
+<script src="app.js"></script>
+</body></html>
