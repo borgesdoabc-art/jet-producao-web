@@ -5,3 +5,12 @@
 
 /* JET brand + PIN gate */
 :root{--jet-blue:#2f80ed;--jet-navy:#17263d;--jet-pale:#dce5f1} .top{background:#2f80ed!important;color:#fff!important}.brand-mark{background:#fff!important;color:#2f80ed!important;font-weight:1000;letter-spacing:-3px}.primary{background:#2f80ed!important}.secondary,.tab{background:#dce5f1;color:#17263d}.tab.active{background:#2f80ed;color:#fff}.pin-gate{position:fixed;inset:0;z-index:9999;background:#2f80ed;display:flex;align-items:center;justify-content:center;padding:22px}.pin-gate.hidden{display:none}.pin-card{width:min(100%,390px);background:#fff;color:#17263d;padding:26px;border-radius:24px;box-shadow:0 20px 60px #0a234655}.pin-logo{font-size:48px;font-weight:1000;letter-spacing:-5px;background:#2f80ed;color:#fff;display:inline-block;padding:8px 16px;border-radius:4px}.pin-card h1{margin:16px 0 4px}.pin-card p,.pin-card small{color:#6c7c91}.pin-card form{display:flex;flex-direction:column;gap:12px}.pin-card input{text-align:center;font-size:24px;letter-spacing:7px}.pin-reset{width:100%;background:transparent;color:#2f80ed;margin-top:8px}.tm-address{font-size:13px;line-height:1.4;overflow-wrap:anywhere;margin:5px 0;color:var(--text)}
+
+/* JET Produção - controle de turno */
+.shift-panel{margin-bottom:16px}
+.shift-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.shift-head h3{margin:0 0 6px}
+.shift-head p{margin:0}
+.shift-panel button:disabled{opacity:.45;cursor:not-allowed}
+.shift-panel .pill{white-space:nowrap}
+@media(max-width:520px){.shift-head{align-items:flex-start;flex-direction:column}}

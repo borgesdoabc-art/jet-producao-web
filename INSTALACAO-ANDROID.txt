@@ -1,0 +1,10 @@
+JET PRODUÇÃO — INSTALAÇÃO ANDROID
+1. Extraia todos os arquivos deste ZIP.
+2. No GitHub, abra o repositório e entre na raiz da branch main.
+3. Use Add file > Upload files. Selecione os arquivos extraídos (não envie o ZIP fechado).
+4. Confirme Commit changes.
+5. Aguarde o GitHub Pages publicar.
+6. Abra o site e faça um teste de PIN, registro, GPS, Time Mark, backup e restauração.
+
+PIN padrão: 3633.
+Atenção: backup JSON agora inclui fotos e pode ficar grande. Faça um backup antes de limpar os dados.

@@ -1,24 +1,28 @@
-# JET Produção — atualização de interface, PIN e endereço
+# JET Produção — sistema completo
 
-## Publicação pelo Android
-1. Extraia o ZIP.
-2. No GitHub, abra `borgesdoabc-art/jet-producao-web` e use Add file → Upload files.
-3. Envie/substitua os arquivos da raiz incluídos neste pacote e confirme Commit changes.
-4. Aguarde o Pages publicar; feche e reabra o site.
+PWA estática para operação em celular, atualizada a partir dos arquivos do projeto fornecido.
 
-## Alterações
-- Cores JET: azul `#2F80ED`, branco, azul-marinho e cinza-claro.
-- PIN numérico local na abertura; PIN esquecido pode ser redefinido mantendo os registros. O PIN é proteção de interface, não criptografia.
-- Time Mark consulta endereço completo por geocodificação reversa quando há internet e inclui o endereço na foto; mantém coordenadas e precisão e informa quando o endereço não está disponível.
-- Link de mapa abre o ponto pelas coordenadas.
+## Recursos
+- PIN de entrada padrão `3633` e opção de restaurá-lo sem apagar registros.
+- Registros operacionais com categoria, identificação, turno, motivo, observações, GPS e foto.
+- Controle de turno: iniciar/encerrar, registrar eventos no histórico e calcular duração.
+- Histórico com busca, filtro por categoria e mês, detalhes, exclusão e métricas mensais.
+- Time Mark com câmera, GPS obrigatório antes da captura, endereço reverso quando disponível, carimbo gravado na imagem, prévia, download, compartilhamento e gravação no histórico.
+- Legenda formatada para Telegram, compartilhamento nativo da foto e relatório diário copiável.
+- Backup JSON v2 com fotos, GPS e endereços; importação de backups anteriores; duplicatas ignoradas.
+- PWA com manifesto e cache offline dos arquivos estáticos.
 
-## Importante
-Os dados continuam no armazenamento local do navegador; faça backup antes de limpar os dados do site. Fotos não são incluídas no backup JSON. A geocodificação precisa de internet. Este pacote atualiza a PWA existente; teste com registros fictícios antes do uso operacional.
+## Publicar pelo Android
+1. Baixe e extraia este ZIP.
+2. Abra o repositório `borgesdoabc-art/jet-producao-web`.
+3. Na raiz, toque em **Add file → Upload files** e selecione todos os arquivos extraídos, substituindo os arquivos de mesmo nome.
+4. Confirme **Commit changes** na branch `main`.
+5. Aguarde o GitHub Pages atualizar. Se a versão antiga persistir, feche e reabra o site ou limpe o cache do site.
 
-
-## Compartilhamento Telegram
-No Histórico, cada registro tem o botão **Telegram**. Em iPhone/Android, use o compartilhamento do sistema para escolher Telegram, grupo e depois o tópico. A página web não seleciona automaticamente um tópico de fórum; essa escolha ocorre dentro do Telegram. Se o navegador não compartilhar a foto, ela será baixada e o texto abrirá no Telegram para envio manual.
-
-
-## Copiar legenda manualmente
-No Histórico, toque em **📋 Copiar legenda** para copiar o texto formatado do registro. No Telegram, anexe a foto ao grupo/tópico desejado e cole o texto no campo de legenda da própria foto antes de enviar. Se a cópia automática não estiver disponível, o app mostrará o texto para copiar manualmente.
+## Notas importantes
+- Os dados ficam no IndexedDB do navegador e não sincronizam automaticamente entre dispositivos. Faça backup regularmente.
+- O PIN é uma barreira de interface; não criptografa os dados e não substitui autenticação corporativa.
+- O backup com fotos pode ficar grande; guarde cópias em local seguro e teste a restauração.
+- O endereço depende de internet e de serviços externos. Se a geocodificação falhar, as coordenadas GPS continuam disponíveis.
+- O navegador não consegue escolher automaticamente um grupo ou tópico do Telegram. Confirme o destino e o envio dentro do Telegram.
+- Teste com registros fictícios e faça um backup antes de substituir arquivos ou apagar dados.
